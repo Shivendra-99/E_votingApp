@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">E votingApp</string>
+    <string name="name">Already Have Account</string>
+    <string name="hint">Enter your Phone Number</string>
+    <string name="pass">Enter your password</string>
+    <string name="create">New User ? </string>
+    <string name="req">Required</string>
+    <string name="acc">Click Here</string>
+    <string name="log">Log In</string>
+    <string name="userName">Enter your Full Name</string>
+    <string name="dob">Date of Birth</string>
+    <string name="fatherName">Enter Fathers/Husbands Name</string>
+    <string name="Reg">Registration Page</string>
+    <string name="pincode">Enter Pincode</string>
+    <string name="MobileNumber">Enter Mobile Number</string>
+    <string name="AadhaarNumber">Enter Aadhaar Number</string>
+    <string name="confirm">Confirm your password </string>
+    <string name="voter">Enter Voter Id</string>
+    <string name="Regis">Register Now</string>
+    <string name="hello_blank_fragment">First Fregment</string>
+    <string name="candidate">Please Select Anyone Candidate</string>
+    <string name="Verification">Please Verify Your Finger Print</string>
+    <string name="Vote">Vote</string>
+</resources>
