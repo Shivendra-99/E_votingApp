@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.evotingapp">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <application
@@ -11,8 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.EVotingApp">
-        <activity android:name=".SetDateAndTIme"/>
-        <activity android:name=".MainActivity4" />
+        <activity android:name=".MainActivity4" android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"/>
         <activity android:name=".MainActivity3" android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"/>
         <activity android:name=".MainActivity2" />
         <activity android:name=".MainActivity" >

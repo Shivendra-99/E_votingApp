@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:id="@+id/scroll"
-    tools:context=".SetDateAndTIme">
+    tools:context=".Fragment.SetDateAndTIme">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     <TextView
         android:id="@+id/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Date And Time For Voting"
+        android:text="@string/set"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
         app:counterEnabled="true"
         app:counterMaxLength="30"
         app:errorIconDrawable="@drawable/error"
-        android:hint="Enter Condidate Name"
+        android:hint="@string/canName"
         app:startIconDrawable="@drawable/person"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@+id/Text"
@@ -43,20 +43,6 @@
             android:maxLength="30"
             />
     </com.google.android.material.textfield.TextInputLayout>
-    <EditText
-        android:id="@+id/signImage"
-        android:layout_width="190dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:paddingStart="5dp"
-        android:maxWidth="190dp"
-        android:layout_marginStart="5dp"
-        android:background="@drawable/condidate_image_name"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/userInput"
-        app:layout_constraintStart_toStartOf="parent"
-        />
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
@@ -66,26 +52,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:onClick="upload_Image"
-        android:text="Upload Image"
-        android:layout_marginTop="25dp"
-        android:textAllCaps="false"
-        app:layout_constraintBaseline_toBaselineOf="@+id/signImage"
-        app:layout_constraintEnd_toEndOf="parent" />
         <Button
             android:id="@+id/addUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:onClick="add_candidate"
-            android:text="Add Candidate"
+            android:text="@string/can"
             android:layout_marginTop="25dp"
             android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@+id/signImage"
+            app:layout_constraintTop_toBottomOf="@+id/userInput"
             app:layout_constraintEnd_toEndOf="parent" />
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/EnterPincode"
@@ -111,11 +86,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:onClick="stateList"
-            android:text="Verify Pincode"
+            android:text="@string/verify"
             android:textAllCaps="false"
             app:layout_constraintBaseline_toBaselineOf="@+id/EnterPincode"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -131,7 +106,7 @@
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/error"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="District">
+        android:hint="@string/District">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dis"
             android:layout_width="160dp"
@@ -152,7 +127,7 @@
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/error"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="State">
+        android:hint="@string/state">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/sta"
             android:layout_width="170dp"
@@ -173,7 +148,7 @@
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/error"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Block">
+            android:hint="@string/block">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/block"
                 android:layout_width="160dp"
@@ -198,7 +173,7 @@
        app:helperTextTextColor="@color/red"
        app:errorIconDrawable="@drawable/error"
        app:startIconDrawable="@drawable/date"
-       android:hint="Enter Start Date"
+       android:hint="@string/start"
        app:boxStrokeColor="@color/purple_500"
        >
        <com.google.android.material.textfield.TextInputEditText
@@ -222,7 +197,7 @@
         app:helperTextTextColor="@color/red"
         app:errorIconDrawable="@drawable/error"
         app:startIconDrawable="@drawable/time"
-        android:hint="Enter Start Time"
+        android:hint="@string/startTime"
         app:boxStrokeColor="@color/purple_500">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -247,7 +222,7 @@
         app:helperTextTextColor="@color/red"
         app:errorIconDrawable="@drawable/error"
         app:startIconDrawable="@drawable/time"
-        android:hint="Enter End Time"
+        android:hint="@string/endTime"
         app:boxStrokeColor="@color/purple_500">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -257,12 +232,12 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/EndTime"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Submit"
-        android:onClick="Submit"
+        android:text="@string/sub"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         />

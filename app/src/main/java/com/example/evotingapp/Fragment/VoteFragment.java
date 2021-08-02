@@ -114,8 +114,8 @@ public class VoteFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                          setVotingDate setVotingDate=document.toObject(setVotingDate.class);
-                          HashMap<String,String> has=setVotingDate.getHashMap();
+                    /*      setVotingDate setVotingDate=document.toObject(setVotingDate.class);
+                        //  HashMap<String,String> has=setVotingDate.getHashMap();
                           String  b[]=new String[has.size()];
                           int i=0;
                           for(String str:has.keySet()){
@@ -124,7 +124,7 @@ public class VoteFragment extends Fragment {
                           }
                           Log.v("Get Data",b[0]+" "+b[1]);
                   //      ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,b);
-                   //     spinner.setAdapter(adapter);
+                   //     spinner.setAdapter(adapter);*/
                     }else{
                         Toast.makeText(getContext(),"This User is not Exits",Toast.LENGTH_LONG).show();
                     }

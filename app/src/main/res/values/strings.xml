@@ -21,4 +21,19 @@
     <string name="candidate">Please Select Anyone Candidate</string>
     <string name="Verification">Please Verify Your Finger Print</string>
     <string name="Vote">Vote</string>
+    <string name="father">Father/Husbands Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="District">District</string>
+    <string name="state">State</string>
+    <string name="area">Area</string>
+    <string name="block">Block</string>
+    <string name="pin">Pincode</string>
+    <string name="sub">Submit</string>
+    <string name="can">Add Candidate</string>
+    <string name="canName">Enter Candidate Name</string>
+    <string name="set">Set Date And Time For Voting</string>
+    <string name="verify">Verify Pincode</string>
+    <string name="start">"Enter Start Date"</string>
+    <string name="startTime">"Enter Start Date"</string>
+    <string name="endTime">Enter End Time</string>
 </resources>

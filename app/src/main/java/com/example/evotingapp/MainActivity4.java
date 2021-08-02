@@ -3,14 +3,13 @@ package com.example.evotingapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.evotingapp.Fragment.Verificatio_List;
-import com.example.evotingapp.Fragment.Verification_user_information;
+import com.example.evotingapp.Fragment.SetDateAndTIme;
 
 public class MainActivity4 extends AppCompatActivity {
     MeowBottomNavigation bottomNavigation;
@@ -49,9 +48,7 @@ public class MainActivity4 extends AppCompatActivity {
                     bundle.putString("GetUser","Verification");
                     fragment.setArguments(bundle);
                 }else if(item.getId()==3){
-                    Intent intent=new Intent(MainActivity4.this,SetDateAndTIme.class);
-                    startActivity(intent);
-                    return;
+                    fragment=new SetDateAndTIme();
                 }
                 loadFragment(fragment);
             }

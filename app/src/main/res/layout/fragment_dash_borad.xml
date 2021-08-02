@@ -1,206 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".Fragment.DashBorad">
-    <TextView
-        android:id="@+id/dashborad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="User Dashborad"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
     <LinearLayout
-        android:id="@+id/userI"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/dashborad"
-        >
-    <TextView
-        android:id="@+id/UserId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User ID="
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:autoSizeTextType="uniform"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/UserI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="20sp"
-        android:maxWidth="350dp"
-        android:autoSizeTextType="uniform"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/userN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/userI"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/colors">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/smile"/>
         <TextView
-            android:id="@+id/UserNa"
+            android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name= "
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"/>
+            style="@style/TextName"/>
         <TextView
-            android:id="@+id/UserNam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:maxWidth="350dp"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/fathe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/userN"
-        >
-        <TextView
-            android:id="@+id/fathername"
+            android:id="@+id/userId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Father Name="
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/fathername1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:maxWidth="350dp"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            />
+            style="@style/TextDescription"
+            android:maxLines="1" />
     </LinearLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/dist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/fathe"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:orientation="vertical">
         <TextView
-            android:id="@+id/Dis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="District= "
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"/>
-        <TextView
-            android:id="@+id/districtName1"
+            android:id="@+id/war"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:maxWidth="350dp"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/area"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/dist"
-        >
-        <TextView
-            android:id="@+id/are"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Area ="
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dashborad"/>
-        <TextView
-            android:id="@+id/Areaname"
+            android:textSize="20sp"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:maxWidth="350dp"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/Pin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/area"
-        >
-        <TextView
-            android:id="@+id/pincode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pincode ="
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dashborad"/>
-        <TextView
-            android:id="@+id/pincodeEn"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/account"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/father"
+                    style="@style/TextBlackTitle"/>
+                <TextView
+                    android:id="@+id/fathername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/father"
+                    style="@style/TextDescription"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20sp"
-            android:maxWidth="350dp"
-            android:autoSizeTextType="uniform"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            />
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/phone"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone"
+                    style="@style/TextBlackTitle"/>
+                <TextView
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone"
+                    style="@style/TextDescription"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/loction"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/District"
+                    style="@style/TextBlackTitle"/>
+                <TextView
+                    android:id="@+id/district"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/District"
+                    style="@style/TextDescription"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/home"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/area"
+                    style="@style/TextBlackTitle"/>
+                <TextView
+                    android:id="@+id/area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/area"
+                    style="@style/TextDescription"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="4dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/pincode"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pin"
+                    style="@style/TextBlackTitle"/>
+                <TextView
+                    android:id="@+id/Pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone"
+                    style="@style/TextDescription"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-    <TextView
-        android:id="@+id/war"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        />
-</RelativeLayout>
+    </ScrollView>
+</LinearLayout>

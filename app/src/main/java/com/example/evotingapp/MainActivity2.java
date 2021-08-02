@@ -3,26 +3,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.app.VoiceInteractor;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.evotingapp.Adopter.CustomeProgressDialog;
 import com.example.evotingapp.Dao.DaoData;
@@ -36,7 +28,6 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthSettings;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -46,9 +37,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.sql.Array;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -128,7 +116,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
-    public void stateList(View view){
+    private void stateList(View view){
         customeProgressDialog.show();
         RequestQueue queue= Volley.newRequestQueue(this);
         Toast.makeText(MainActivity2.this,"Please Wait",Toast.LENGTH_LONG).show();
@@ -199,7 +187,7 @@ public class MainActivity2 extends AppCompatActivity {
             return true;
         }
     }
-    public void Register(View view) {
+    private void Register(View view) {
         customeProgressDialog.show();
         if(!validate(user.getText().toString().trim(),father.getText().toString().trim(),dob.getText().toString().trim(),gen.getText().toString().trim(),area.getText().toString().trim(),pincode.getText().toString().trim(),
                district.getText().toString().trim(),state.getText().toString().trim(),block.getText().toString().trim(),mobi.getText().toString().trim(),aadh.getText().toString().trim(),voterId.getText().toString().trim(),

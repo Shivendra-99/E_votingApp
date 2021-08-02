@@ -1,9 +1,10 @@
 package com.example.evotingapp.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class setVotingDate {
-    private HashMap<String,String> hashMap;
+    private ArrayList<String> list;
     String startDate;
     String EndDate;
     String StartTime;
@@ -13,9 +14,8 @@ public class setVotingDate {
     String State;
     public setVotingDate() {
     }
-
-    public setVotingDate(HashMap<String, String> hashMap, String startDate, String endDate, String startTime, String endTime, String pincode, String district, String state) {
-        this.hashMap = hashMap;
+    public setVotingDate(ArrayList<String> list, String startDate, String endDate, String startTime, String endTime, String pincode, String district, String state) {
+        this.list = list;
         this.startDate = startDate;
         EndDate = endDate;
         StartTime = startTime;
@@ -25,12 +25,12 @@ public class setVotingDate {
         State = state;
     }
 
-    public HashMap<String, String> getHashMap() {
-        return hashMap;
+    public ArrayList<String> getList() {
+        return list;
     }
 
-    public void setHashMap(HashMap<String, String> hashMap) {
-        this.hashMap = hashMap;
+    public void setList(ArrayList<String> list) {
+        this.list = list;
     }
 
     public String getStartDate() {

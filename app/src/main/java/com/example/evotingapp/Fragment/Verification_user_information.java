@@ -1,8 +1,7 @@
-package com.example.evotingapp.Fragment;
+ package com.example.evotingapp.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
