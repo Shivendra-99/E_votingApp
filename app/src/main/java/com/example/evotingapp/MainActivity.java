@@ -6,13 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.evotingapp.Adopter.CustomeProgressDialog;
-import com.example.evotingapp.Dao.DaoData;
-import com.example.evotingapp.model.SetData;
-import com.example.evotingapp.model.setVotingDate;
 import com.example.evotingapp.model.userData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +45,7 @@ CustomeProgressDialog customeProgressDialog;
         customeProgressDialog=new CustomeProgressDialog(MainActivity.this);
     }
     private boolean validPass(){
-        String password=layout.getEditText().getText().toString().trim();
+        String password= Objects.requireNonNull(layout.getEditText()).getText().toString().trim();
         if(password.isEmpty())
         {
             layout.setError("Password can not be Empty");
@@ -68,7 +64,7 @@ CustomeProgressDialog customeProgressDialog;
         }
     }
     private boolean validInput(){
-        String userid=textInputLayout.getEditText().getText().toString().trim();
+        String userid= Objects.requireNonNull(textInputLayout.getEditText()).getText().toString().trim();
         if(userid.isEmpty())
         {
             textInputLayout.setError("User id can not be Empty");
@@ -86,11 +82,10 @@ CustomeProgressDialog customeProgressDialog;
             return;
         }
         Toast.makeText(MainActivity.this,"Clicked log in",Toast.LENGTH_LONG).show();
-        if(textInputLayout.getEditText().getText().toString().trim().equals("9936120982") && layout.getEditText().getText().toString().trim().equals("12345678")){
+        if(Objects.requireNonNull(textInputLayout.getEditText()).getText().toString().trim().equals("9936120982") && layout.getEditText().getText().toString().trim().equals("12345678")){
             Intent b=new Intent(MainActivity.this,MainActivity4.class);
             startActivity(b);
             customeProgressDialog.show();
-            return;
         }
         else {
             customeProgressDialog.show();
@@ -163,7 +158,7 @@ CustomeProgressDialog customeProgressDialog;
                 }).addOnFailureListener(this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this,e.getMessage().toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
                 customeProgressDialog.cancel();
             }
         });

@@ -1,5 +1,4 @@
 package com.example.evotingapp.Fragment;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,46 +15,47 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.evotingapp.Adopter.AutoCompleteAdopter;
 import com.example.evotingapp.R;
 import com.example.evotingapp.model.SetData;
 import com.example.evotingapp.model.setVotingDate;
-import com.example.evotingapp.model.userData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.Executor;
-
 public class VoteFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private FirebaseAuth firebaseAuth;
     Button button;
     AutoCompleteTextView spinner;
-    private TextInputLayout textInputLayout;
+    ArrayList<String> has;
     ArrayList<SetData> list;
+    ArrayList<String> li=new ArrayList<>();
     public VoteFragment() {
+
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_vote, container, false);
         list=new ArrayList<>();
+        has=new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
+        spinner=v.findViewById(R.id.spinner1);
         firebaseUser = firebaseAuth.getCurrentUser();
         button = v.findViewById(R.id.Verification);
-        spinner=v.findViewById(R.id.spinner1);
-        set();
         if (firebaseUser != null) {
 
             BiometricManager biometricManager=BiometricManager.from(getContext());
@@ -96,48 +96,33 @@ public class VoteFragment extends Fragment {
                     .setDescription("Use Your Finger Print To For the Vote")
                     .setNegativeButtonText("Cancel")
                     .build();
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    biometricPrompt.authenticate(promptInfo);
-                }
-            });
+            button.setOnClickListener(v1 -> biometricPrompt.authenticate(promptInfo));
         }
-        return v;
-    }
-    private void set(){
+        ArrayList<String> b=new ArrayList<>();
+        b.add("Shivendra");
+        b.add("Satya");
+        b.add("Krishna");
+        b.add("Shailendra");
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,b);
+        spinner.setThreshold(1);
+        spinner.setAdapter(adapter);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docIdRef = db.collection("SetVotingDateAndTime").document("Pratapgarh");
-        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                    /*      setVotingDate setVotingDate=document.toObject(setVotingDate.class);
-                        //  HashMap<String,String> has=setVotingDate.getHashMap();
-                          String  b[]=new String[has.size()];
-                          int i=0;
-                          for(String str:has.keySet()){
-                              b[i]=str;
-                              i++;
-                          }
-                          Log.v("Get Data",b[0]+" "+b[1]);
-                  //      ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,b);
-                   //     spinner.setAdapter(adapter);*/
-                    }else{
-                        Toast.makeText(getContext(),"This User is not Exits",Toast.LENGTH_LONG).show();
-                    }
-                }
-                else{
-                    Toast.makeText(getContext(),"Error is coming",Toast.LENGTH_LONG).show();
+        DocumentReference docIdRef = db.collection("SetVotingDateAndTime").document("Kunda");
+        docIdRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    setVotingDate setVotingDate=document.toObject(setVotingDate.class);
+                    assert setVotingDate != null;
+
+                }else{
+                    Toast.makeText(getContext(),"This User is not Exits",Toast.LENGTH_LONG).show();
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            else{
+                Toast.makeText(getContext(),"Error is coming",Toast.LENGTH_LONG).show();
             }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show());
+        return v;
     }
 }

@@ -34,6 +34,6 @@
     <string name="set">Set Date And Time For Voting</string>
     <string name="verify">Verify Pincode</string>
     <string name="start">"Enter Start Date"</string>
-    <string name="startTime">"Enter Start Date"</string>
+    <string name="startTime">"Enter Start Time"</string>
     <string name="endTime">Enter End Time</string>
 </resources>

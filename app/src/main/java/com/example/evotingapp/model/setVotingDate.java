@@ -1,30 +1,27 @@
 package com.example.evotingapp.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 public class setVotingDate {
     private ArrayList<String> list;
     String startDate;
-    String EndDate;
     String StartTime;
     String EndTime;
     String Pincode;
     String District;
     String State;
+    String block;
     public setVotingDate() {
     }
-    public setVotingDate(ArrayList<String> list, String startDate, String endDate, String startTime, String endTime, String pincode, String district, String state) {
+    public setVotingDate(ArrayList<String> list, String startDate,String startTime, String endTime, String pincode, String district, String state,String block) {
         this.list = list;
         this.startDate = startDate;
-        EndDate = endDate;
         StartTime = startTime;
         EndTime = endTime;
         Pincode = pincode;
         District = district;
         State = state;
+        this.block=block;
     }
-
     public ArrayList<String> getList() {
         return list;
     }
@@ -39,14 +36,6 @@ public class setVotingDate {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return EndDate;
-    }
-
-    public void setEndDate(String endDate) {
-        EndDate = endDate;
     }
 
     public String getStartTime() {
@@ -83,6 +72,14 @@ public class setVotingDate {
 
     public String getState() {
         return State;
+    }
+
+    public String getBlock() {
+        return block;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
     }
 
     public void setState(String state) {

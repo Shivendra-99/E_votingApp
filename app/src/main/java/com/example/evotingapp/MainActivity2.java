@@ -8,24 +8,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.evotingapp.Adopter.CustomeProgressDialog;
 import com.example.evotingapp.Dao.DaoData;
 import com.example.evotingapp.model.userData;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -52,11 +46,14 @@ public class MainActivity2 extends AppCompatActivity {
     CustomeProgressDialog customeProgressDialog;
   FirebaseAuth mauth;
   FirebaseFirestore firebaseFirestore;
+  Button b1,b2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         user=findViewById(R.id.user);
+        b1=findViewById(R.id.stateList);
+        b2=findViewById(R.id.Register);
         father=findViewById(R.id.father);
         mobi=findViewById(R.id.mobile);
         aadh=findViewById(R.id.aadhar);
@@ -91,54 +88,40 @@ public class MainActivity2 extends AppCompatActivity {
         int year=calendar.get(Calendar.YEAR);
         int month=calendar.get(Calendar.MONTH);
         int day=calendar.get(Calendar.DAY_OF_MONTH);
-        dob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        dob.setOnClickListener((View v) -> {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(
-                        MainActivity2.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month=month+1;
-                        String date=day+"/"+month+"/"+year;
-                        dob.setText(date);
-                    }
-                },year,month,day);
+                        MainActivity2.this, (view, year1, month1, day1) -> {
+                            month1 = month1 +1;
+                            String date= day1 +"/"+ month1 +"/"+ year1;
+                            dob.setText(date);
+                        },year,month,day);
                 datePickerDialog.show();
-            }
         });
-        gen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String str[]={"Male","Female","Transgender"};
+        gen.setOnClickListener((View v) -> {
+                String[] str ={"Male","Female","Transgender"};
                 List<String> ls= Arrays.asList(str);
                 ArrayAdapter j=new ArrayAdapter(MainActivity2.this,R.layout.gender_layout,ls);
                 gen.setAdapter(j);
-            }
         });
-    }
-    private void stateList(View view){
-        customeProgressDialog.show();
-        RequestQueue queue= Volley.newRequestQueue(this);
-        Toast.makeText(MainActivity2.this,"Please Wait",Toast.LENGTH_LONG).show();
-        if(!valid(pincode.getText().toString().trim()))
-        {
-            customeProgressDialog.cancel();
-            return;
-        }
-        url="https://api.postalpincode.in/pincode/"+ Objects.requireNonNull(pincode.getText()).toString().trim();
-        JsonArrayRequest json=new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    String s=response.getJSONObject(0).getString("Message").toString();
-                    String k=response.getJSONObject(0).getString("Status").toString();
-                    JSONArray jsonArray=response.getJSONObject(0).getJSONArray("PostOffice");
+        b1.setOnClickListener((View view) -> {
+                customeProgressDialog.show();
+                RequestQueue queue= Volley.newRequestQueue(MainActivity2.this);
+                Toast.makeText(MainActivity2.this,"Please Wait",Toast.LENGTH_LONG).show();
+                if(!valid(pincode.getText().toString().trim()))
+                {
+                    customeProgressDialog.cancel();
+                    return;
+                }
+                url="https://api.postalpincode.in/pincode/"+ Objects.requireNonNull(pincode.getText()).toString().trim();
+                JsonArrayRequest json=new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+                    try {
+                        JSONArray jsonArray=response.getJSONObject(0).getJSONArray("PostOffice");
                         JSONObject jsonObject=jsonArray.getJSONObject(0);
                         String sta=jsonObject.getString("State");
                         String dis=jsonObject.getString("District");
                         String blo=jsonObject.getString("Block");
-                    pin.setErrorEnabled(false);
-                    pin.setError(null);
+                        pin.setErrorEnabled(false);
+                        pin.setError(null);
                         state.setText(sta);
                         district.setText(dis);
                         block.setText(blo);
@@ -153,21 +136,30 @@ public class MainActivity2 extends AppCompatActivity {
                         area.setAdapter(arrayAdapter);
                         Toast.makeText(MainActivity2.this,"Success",Toast.LENGTH_LONG).show();
                         customeProgressDialog.cancel();
-                }
-                catch (Exception e) {
-                    pin.setErrorEnabled(true);
-                    pin.setError("Wrong Pincode Enter");
+                    }
+                    catch (Exception e) {
+                        pin.setErrorEnabled(true);
+                        pin.setError("Wrong Pincode Enter");
+                        customeProgressDialog.cancel();
+                    }
+                }, error -> {
+                    Toast.makeText(MainActivity2.this,"Getting wrong message",Toast.LENGTH_LONG).show();
                     customeProgressDialog.cancel();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity2.this,"Getting wrong message",Toast.LENGTH_LONG).show();
-                customeProgressDialog.cancel();
-            }
+                });
+                queue.add(json);
         });
-        queue.add(json);
+        b2.setOnClickListener((View view) -> {
+                customeProgressDialog.show();
+                if(!validate(Objects.requireNonNull(user.getText()).toString().trim(), Objects.requireNonNull(father.getText()).toString().trim(), Objects.requireNonNull(dob.getText()).toString().trim(),gen.getText().toString().trim(),area.getText().toString().trim(),pincode.getText().toString().trim(),
+                        Objects.requireNonNull(district.getText()).toString().trim(), Objects.requireNonNull(state.getText()).toString().trim(), Objects.requireNonNull(block.getText()).toString().trim(), Objects.requireNonNull(mobi.getText()).toString().trim(),aadh.getText().toString().trim(),voterId.getText().toString().trim(),
+                        Objects.requireNonNull(pass.getText()).toString().trim(), Objects.requireNonNull(con_pass.getText()).toString().trim()))
+                {
+                    customeProgressDialog.cancel();
+                 //   return;
+                }else {
+                    verification_of_Number();
+                }
+        });
     }
     private boolean valid(String password) {
         if(password.isEmpty())
@@ -187,19 +179,8 @@ public class MainActivity2 extends AppCompatActivity {
             return true;
         }
     }
-    private void Register(View view) {
-        customeProgressDialog.show();
-        if(!validate(user.getText().toString().trim(),father.getText().toString().trim(),dob.getText().toString().trim(),gen.getText().toString().trim(),area.getText().toString().trim(),pincode.getText().toString().trim(),
-               district.getText().toString().trim(),state.getText().toString().trim(),block.getText().toString().trim(),mobi.getText().toString().trim(),aadh.getText().toString().trim(),voterId.getText().toString().trim(),
-               pass.getText().toString().trim(),con_pass.getText().toString().trim()))
-       {
-           customeProgressDialog.cancel();
-           return;
-       }
-       verification_of_Number();
-    }
     private void verification_of_Number() {
-        String phoneNumber="+91"+mobi.getText().toString().trim();
+        String phoneNumber="+91"+ Objects.requireNonNull(mobi.getText()).toString().trim();
         PhoneAuthOptions options=PhoneAuthOptions.newBuilder(mauth).setPhoneNumber(phoneNumber)
                 .setTimeout(60L,TimeUnit.SECONDS)
                 .setActivity(this)
@@ -222,61 +203,47 @@ public class MainActivity2 extends AppCompatActivity {
     private  void signInwithPhoneAuth(PhoneAuthCredential phoneAuthCredential)
     {
         mauth.signInWithCredential(phoneAuthCredential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            updateData();
+                .addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()){
+                        updateData();
+                        customeProgressDialog.cancel();
+                    }
+                    else
+                    {
+                        if(task.getException() instanceof FirebaseAuthInvalidCredentialsException){
+                            Toast.makeText(MainActivity2.this,"Verification Faield",Toast.LENGTH_LONG).show();
                             customeProgressDialog.cancel();
                         }
-                        else
-                        {
-                            if(task.getException() instanceof FirebaseAuthInvalidCredentialsException){
-                                Toast.makeText(MainActivity2.this,"Verification Faield",Toast.LENGTH_LONG).show();
-                                customeProgressDialog.cancel();
-                            }
-                        }
                     }
-                }).addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity2.this,e.getMessage().toString(),Toast.LENGTH_LONG).show();
-                customeProgressDialog.cancel();
-            }
-        });
+                }).addOnFailureListener(this, e -> {
+                    Toast.makeText(MainActivity2.this, e.getMessage(),Toast.LENGTH_LONG).show();
+                    customeProgressDialog.cancel();
+                });
     }
     private void updateData() {
-       userData userData=new userData(user.getText().toString(),father.getText().toString(),dob.getText().toString(),gen.getText().toString(),pincode.getText().toString(),district.getText().toString(),state.getText().toString(),block.getText().toString(),area.getText().toString(),mobi.getText().toString(),aadh.getText().toString(), voterId.getText().toString(),pass.getText().toString(),mauth.getCurrentUser().getUid());
+       userData userData=new userData(Objects.requireNonNull(user.getText()).toString(), Objects.requireNonNull(father.getText()).toString(), Objects.requireNonNull(dob.getText()).toString(),gen.getText().toString(), Objects.requireNonNull(pincode.getText()).toString(), Objects.requireNonNull(district.getText()).toString(), Objects.requireNonNull(state.getText()).toString(), Objects.requireNonNull(block.getText()).toString(),area.getText().toString(), Objects.requireNonNull(mobi.getText()).toString(), Objects.requireNonNull(aadh.getText()).toString(), Objects.requireNonNull(voterId.getText()).toString(), Objects.requireNonNull(pass.getText()).toString(), Objects.requireNonNull(mauth.getCurrentUser()).getUid());
         DaoData daoData=new DaoData();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docIdRef = db.collection("Data_for_Verification").document(userData.getUserid());
-        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Toast.makeText(MainActivity2.this,"User is Already Exits",Toast.LENGTH_LONG).show();
-                        FirebaseAuth.getInstance().signOut();
-                    } else {
-                        daoData.addUser(userData);
-                        Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
-                        startActivity(intent);
-                        Toast.makeText(MainActivity2.this,"Registration completed",Toast.LENGTH_LONG).show();
-                        finish();
-                        customeProgressDialog.cancel();
-                    }
-                }
-                else{
-                    Toast.makeText(MainActivity2.this,"Error is coming",Toast.LENGTH_LONG).show();
+        docIdRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    Toast.makeText(MainActivity2.this,"User is Already Exits",Toast.LENGTH_LONG).show();
+                    FirebaseAuth.getInstance().signOut();
+                } else {
+                    daoData.addUser(userData);
+                    Intent intent=new Intent(MainActivity2.this,MainActivity3.class);
+                    startActivity(intent);
+                    Toast.makeText(MainActivity2.this,"Registration completed",Toast.LENGTH_LONG).show();
+                    finish();
+                    customeProgressDialog.cancel();
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity2.this,e.getMessage(),Toast.LENGTH_LONG).show();
+            else{
+                Toast.makeText(MainActivity2.this,"Error is coming",Toast.LENGTH_LONG).show();
             }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(MainActivity2.this,e.getMessage(),Toast.LENGTH_LONG).show());
     }
     private boolean validate(String trim, String trim1, String trim2, String trim3, String trim4, String trim5, String trim6, String trim7, String trim8, String trim9, String trim10, String trim11, String trim12, String trim13) {
         boolean f=true;
@@ -302,12 +269,14 @@ public class MainActivity2 extends AppCompatActivity {
             fatherName.setError(null);
             fatherName.setErrorEnabled(false);
         }
-        String s=trim2.substring(trim2.length()-4,trim2.length());
-        if(trim2.length()>2){
-            if(s.compareTo("2004")>=0) {
-                birth.setError("Candidate Should be 18 or 18+");
-                birth.setErrorEnabled(true);
-                f = false;
+        if(!trim1.isEmpty()) {
+            String s = trim2.substring(trim2.length() - 4);
+            if (trim2.length() > 2) {
+                if (s.compareTo("2004") >= 0) {
+                    birth.setError("Candidate Should be 18 or 18+");
+                    birth.setErrorEnabled(true);
+                    f = false;
+                }
             }
         }
         if(trim2.isEmpty() | trim2.length()==0)

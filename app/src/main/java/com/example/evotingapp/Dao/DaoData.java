@@ -61,7 +61,7 @@ public class DaoData {
         collectionReference1.document(userData.getUserid()).set(userData);
     }
     public void setVotingtime(setVotingDate setVotingDate){
-        getCollectionReference2.document(setVotingDate.getDistrict()).set(setVotingDate);
+        getCollectionReference2.document(setVotingDate.getBlock()).set(setVotingDate);
     }
     public CollectionReference getData(){
        return getCollectionReference2;

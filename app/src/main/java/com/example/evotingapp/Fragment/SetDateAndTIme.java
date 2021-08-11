@@ -41,11 +41,11 @@ import java.util.Objects;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 public class SetDateAndTIme extends Fragment {
-    private TextInputLayout inputLayout, inputLayout2, pincode, state;
-    private TextInputLayout startTime, district,CondidateName;
+    private TextInputLayout startDate, pincode, state;
+    private TextInputLayout startTime,EndTime, district,CondidateName;
     private TextInputEditText block;
     private ProgressBar progressBar;
-    int hour, minu;
+    int hour, minu,hour1,minu1;
     private ArrayList<String> list;
     private ScrollView scrollView;
     StorageReference storageReference;
@@ -61,38 +61,23 @@ public class SetDateAndTIme extends Fragment {
         Button add=view.findViewById(R.id.addUser);
         Button verify=view.findViewById(R.id.verify);
         Button submit=view.findViewById(R.id.submit);
-        inputLayout = view.findViewById(R.id.EnterDate);
-        inputLayout2 = view.findViewById(R.id.Block1);
         startTime = view.findViewById(R.id.StartTime);
+        startDate=view.findViewById(R.id.EnterDate);
         pincode = view.findViewById(R.id.EnterPincode);
         district = view.findViewById(R.id.District1);
         state = view.findViewById(R.id.state);
+        EndTime=view.findViewById(R.id.EndTime);
         scrollView = view.findViewById(R.id.scroll);
         block = view.findViewById(R.id.block);
         CondidateName=view.findViewById(R.id.userInput);
         list=new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
         int year1 = calendar.get(Calendar.YEAR);
         int month1 = calendar.get(Calendar.MONTH);
         int day1 = calendar.get(Calendar.DAY_OF_MONTH);
         storageReference=FirebaseStorage.getInstance().getReference("Upload");
         databaseReference= FirebaseDatabase.getInstance().getReference("upload");
-        inputLayout.getEditText().setOnClickListener((View v) -> {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        month = month + 1;
-                        String date = day + "/" + month + "/" + year;
-                        inputLayout.getEditText().setText(date);
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
-        });
-        inputLayout2.getEditText().setOnClickListener(new View.OnClickListener() {
+        startDate.getEditText().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -101,7 +86,7 @@ public class SetDateAndTIme extends Fragment {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         month = month + 1;
                         String date = day + "/" + month + "/" + year;
-                        inputLayout2.getEditText().setText(date);
+                        startDate.getEditText().setText(date);
                     }
                 }, year1, month1, day1);
                 datePickerDialog.show();
@@ -115,8 +100,7 @@ public class SetDateAndTIme extends Fragment {
     });
         submit.setOnClickListener((View v) -> {
             progressBar.setVisibility(VISIBLE);
-            setVotingDate setVotingDate = new setVotingDate(list,inputLayout.getEditText().getText().toString().trim(), inputLayout2.getEditText().getText().toString().trim(), startTime.getEditText().getText().toString().trim()
-                    , block.getText().toString(), pincode.getEditText().getText().toString().trim(), district.getEditText().getText().toString().trim(), state.getEditText().getText().toString().trim());
+            setVotingDate setVotingDate = new setVotingDate(list,startDate.getEditText().getText().toString().trim(), startTime.getEditText().getText().toString().trim(),EndTime.getEditText().getText().toString().trim(), pincode.getEditText().getText().toString().trim(), district.getEditText().getText().toString().trim(), state.getEditText().getText().toString().trim(),block.getText().toString());
             DaoData daoData = new DaoData();
             daoData.setVotingtime(setVotingDate);
             Snackbar snackbar = Snackbar.make(getContext(), scrollView, "Voting Date And Time Set Success", Snackbar.LENGTH_INDEFINITE)
@@ -135,18 +119,32 @@ public class SetDateAndTIme extends Fragment {
             snackbar.show();
         });
         startTime.getEditText().setOnClickListener((View v) ->{
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        hour = hourOfDay;
-                        minu = minute;
-                        Calendar calendar1 = Calendar.getInstance();
-                        calendar1.set(0, 0, 0, hour, minu);
-                        startTime.getEditText().setText(DateFormat.format("hh:mm aa", calendar1));
-                    }
-                }, 12, 0, false);
-                timePickerDialog.updateTime(hour, minu);
-                timePickerDialog.show();
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    hour = hourOfDay;
+                    minu = minute;
+                    Calendar calendar1 = Calendar.getInstance();
+                    calendar1.set(0, 0, 0, hour, minu);
+                    startTime.getEditText().setText(DateFormat.format("hh:mm aa", calendar1));
+                }
+            }, 12, 0, false);
+            timePickerDialog.updateTime(hour, minu);
+            timePickerDialog.show();
+        });
+        EndTime.getEditText().setOnClickListener((View v) ->{
+            TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                     hour1 = hourOfDay;
+                     minu1 = minute;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(0, 0, 0, hour1, minu1);
+                    EndTime.getEditText().setText(DateFormat.format("hh:mm aa", calendar));
+                }
+            }, 12, 0, false);
+            timePickerDialog.updateTime(hour1, minu1);
+            timePickerDialog.show();
         });
         verify.setOnClickListener((View v)-> {
             stateList();
